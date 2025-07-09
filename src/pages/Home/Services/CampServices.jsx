@@ -1,4 +1,5 @@
 import { Stethoscope, Syringe, HeartPulse, Hospital, UserPlus, MapPinCheck } from "lucide-react"
+import ServiceCard from "./ServiceCard"
 
 const services = [
   {
@@ -44,13 +45,12 @@ return (
         </p>
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {services.map((service, idx)=>(
-                <div key={idx} className="p-6 rounded-xl border hover:shadow-lg transition-all">
-              <div className="flex items-center justify-center mb-4">
-                {service.icon}
-              </div>
-              <h3 className="font-semibold text-lg mb-1">{service.title}</h3>
-              <p className="text-sm text-muted-foreground">{service.description}</p>
-            </div>
+              <ServiceCard 
+              key={idx}
+              icon={service.icon}
+              title={service.title}
+              description={service.description}/>
+           
             ))}
 
         </div>

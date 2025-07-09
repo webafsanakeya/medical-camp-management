@@ -41,7 +41,7 @@ export default function Navbar({ user }) {
             <Button variant="ghost">Available Camps</Button>
           </Link>
           {!user ? (
-            <Link to="/join">
+            <Link to="/signup">
               <Button>Join Us</Button>
             </Link>
           ) : (
@@ -85,8 +85,8 @@ export default function Navbar({ user }) {
           </Link>
 
           {!user ? (
-            <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
-              <Button className="w-full">Join Use</Button>
+            <Link to="/signup" onClick={() => setIsMobileMenuOpen(false)}>
+              <Button className="w-full">Join Us</Button>
             </Link>
           ) : (
             <div className="flex flex-col gap-2">
