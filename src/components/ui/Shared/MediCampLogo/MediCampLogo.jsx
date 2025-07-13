@@ -1,17 +1,14 @@
 import React from 'react';
-import logo from '../../../../assets/logo/logo.png'
-import { Link } from 'react-router';
+import logo from '../../../../assets/logo/logo.png';
+import { Link } from 'react-router'; 
 
 const MediCampLogo = () => {
-    return (
-        <Link to='/'>
-        <div className='flex items-center'>
-            <img src={logo} width='100' height='100' alt="" />
-            <p className='text-xl font-bold -ml-4'>MediCamp</p>
-           
-        </div>
-        </Link>
-    );
+  return (
+    <Link to='/' className='flex items-center gap-2'>
+      <img src={logo} alt="MediCamp Logo" width={40} height={40} />
+      <span className='text-xl font-bold text-lime-700'>MediCamp</span>
+    </Link>
+  );
 };
 
 export default MediCampLogo;

@@ -1,38 +1,42 @@
 import { Link } from 'react-router'
 
-const MedicalCampCard = () => {
+const MedicalCampCard = ({camp}) => {
+  const {_id, campName,
+      dateTime,
+      location,
+      doctor,
+      participantCount,
+      image, fees, description} = camp || {}
   return (
     <Link
-      to={`/camp-details/camp1`}
-      className='col-span-1 cursor-pointer group shadow-xl p-3 rounded-xl'
+      to={`/camp/${_id}`}
+      className='group shadow-md hover:shadow-lg transition-shadow rounded-xl overflow-hidden bg-white'
     >
-      <div className='flex flex-col gap-2 w-full'>
+      <div className='flex flex-col'>
         <div
           className='
-              aspect-square 
-              w-full 
-              relative 
-              overflow-hidden 
-              rounded-xl
+              aspect-video w-full relative overflow-hidden
             '
         >
           <img
             className='
-                object-cover 
-                h-full 
-                w-full 
-                group-hover:scale-110 
-                transition
+               object-cover w-full h-full group-hover:scale-105 transition-transform duration-300
               '
-            src='https://i.ibb.co/jZj7czLC/5063406.jpg' 
+            src={image}
             alt='Medical Camp'
           />
         </div>
-        <div className='font-semibold text-lg'>Health Check-Up Camp</div>
-        <div className='font-medium text-sm text-gray-600'>Location: Dhaka, Bangladesh</div>
-        <div className='font-medium text-sm text-gray-600'>Date: 25 July 2025</div>
-        <div className='font-medium text-sm text-gray-600'>Organized By: MediCare Foundation</div>
-        <div className='font-semibold text-green-600'>Free Services Available</div>
+           <div className='p-4 space-y-1'>
+      <h3 className='text-lg font-semibold'>{campName}</h3>
+      <p className='text-sm text-gray-600'>{location}</p>
+      <p className='text-sm text-gray-500'>{new Date(dateTime).toLocaleString()}</p>
+      <p className='text-sm text-gray-600'>{doctor}</p>
+      <p className='text-sm text-gray-600'>{fees}</p>
+      <p className='font-bold text-green-600'>{participantCount}</p>
+      <p className='font-bold text-green-600'>{description}</p>
+      
+
+    </div>
       </div>
     </Link>
   )

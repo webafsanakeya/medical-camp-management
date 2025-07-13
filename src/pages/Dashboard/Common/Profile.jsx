@@ -1,5 +1,6 @@
-import useAuth from '../../../hooks/useAuth'
 
+
+import useAuth from '@/hooks/useAuth'
 import coverImg from '../../../assets/images/cover.jpg'
 const Profile = () => {
   const { user } = useAuth()

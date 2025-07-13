@@ -14,6 +14,7 @@ import ManageUsers from "@/pages/Dashboard/Admin/ManageUsers";
 import RegisteredCamp from "@/pages/Dashboard/Participant/RegisteredCamp";
 import ManageRegisteredCamps from "@/pages/Dashboard/Organizer/ManageRegisteredCamps";
 import Login from "@/pages/JoinUs/Login/Login";
+import Profile from "@/pages/Dashboard/Common/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -24,10 +25,12 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+        loader: () => fetch(`${import.meta.env.VITE_API_URL}/camps`)
       },
       {
-        path: '/camp-details/:campId',
-        element: <CampDetails />
+        path: '/camp/:id',
+        element: <CampDetails />,
+        loader: ({params}) => fetch(`${import.meta.env.VITE_API_URL}/camp/${params.id}`)
 
       },
     ],
@@ -78,6 +81,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <ManageUsers />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "profile",
+        element: (
+          <PrivateRoute>
+            <Profile />
           </PrivateRoute>
         ),
       },
