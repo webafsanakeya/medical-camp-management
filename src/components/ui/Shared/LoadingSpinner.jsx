@@ -1,13 +1,16 @@
-import { Loader2 } from "lucide-react";
-import React from "react";
+import React from 'react';
 
-const LoadingSpinner = ({ size = 24, className = "" }) => {
+const LoadingSpinner = ({ loader: Loader, smallHeight = false, color = '#36d7b7', size = 15 }) => {
   return (
-    <Loader2
-      className={`animate-spin text-muted-foreground ${className}`}
-      width={size}
-      height={size}
-    />
+    <div
+      className={` ${smallHeight ? 'h-[250px]' : 'h-[70vh]'} 
+      flex 
+      flex-col 
+      justify-center 
+      items-center`}
+    >
+      {Loader && <Loader color={color} size={size} />}
+    </div>
   );
 };
 

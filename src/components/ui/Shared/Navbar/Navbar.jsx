@@ -10,19 +10,18 @@ import {
 import { useState } from "react";
 import { Menu } from "lucide-react";
 import MediCampLogo from "../MediCampLogo/MediCampLogo";
+import useAuth from "@/hooks/useAuth";
 
-export default function Navbar({ user }) {
+export default function Navbar() {
+  const { user, logOut } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   return (
     <nav className="border-b shadow-sm px-4 py-1">
       <div className="flex justify-between items-center">
-        
-  <div className="flex items-center">
-         <MediCampLogo />
-        <Link to="/" className="text-xl font-bold -ml-4">
-          MediCamp
-        </Link>
-  </div>
+        <div className="flex items-center">
+          <MediCampLogo />
+          
+        </div>
 
         {/* Mobile Hamburger Menu */}
         <button
@@ -57,17 +56,19 @@ export default function Navbar({ user }) {
                 <DropdownMenuItem asChild>
                   <Link to="/dashboard">Dashboard</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/logout">Logout</Link>
+                <DropdownMenuItem
+                  onClick={() => {
+                    logOut();
+                  }}
+                >
+                  Logout
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           )}
         </div>
       </div>
-
       {/* Mobile Menu */}
-
       {isMobileMenuOpen && (
         <div className="md:hidden mt-4 flex flex-col space-y-2">
           <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
@@ -92,15 +93,25 @@ export default function Navbar({ user }) {
             <div className="flex flex-col gap-2">
               <div className="px-4 text-sm font-medium">{user?.name}</div>
               <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)}>
-                <Button variant="ghost" className="w-full">Dashboard</Button>
+                <Button variant="ghost" className="w-full">
+                  Dashboard
+                </Button>
               </Link>
-              <Link to="/logout" onClick={() => setIsMobileMenuOpen(false)}>
-                <Button variant="ghost" className="w-full">Logout</Button>
-              </Link>
+              <Button
+                variant="ghost"
+                className="w-full"
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  logOut();
+                }}
+              >
+                Logout
+              </Button>
             </div>
           )}
         </div>
       )}
+      
     </nav>
   );
 }

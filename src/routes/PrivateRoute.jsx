@@ -1,10 +1,12 @@
+
 import LoadingSpinner from '@/components/ui/Shared/LoadingSpinner';
-import UseAuth from '@/hooks/UseAuth';
+import useAuth from '@/hooks/useAuth';
+
 import React from 'react';
 import { Navigate, useLocation } from 'react-router';
 
 const PrivateRoute = ({children}) => {
-    const {user, loading} = UseAuth();
+    const {user, loading} = useAuth();
     const location = useLocation
 
     if(loading) return <LoadingSpinner />
