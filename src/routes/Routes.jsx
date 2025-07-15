@@ -30,7 +30,7 @@ export const router = createBrowserRouter([
       {
         path: '/camp/:id',
         element: <CampDetails />,
-        loader: ({params}) => fetch(`${import.meta.env.VITE_API_URL}/camp/${params.id}`)
+        
 
       },
     ],

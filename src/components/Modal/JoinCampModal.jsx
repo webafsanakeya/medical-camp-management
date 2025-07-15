@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import CheckoutForm from "../Form/CheckoutForm";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK_KEY);
-const JoinCampModal = ({ closeModal, isOpen, camp }) => {
+const JoinCampModal = ({ closeModal, isOpen, camp, fetchPlant }) => {
   // Total joiner Calculation
   const { user } = useAuth();
   const {
@@ -140,7 +140,7 @@ const JoinCampModal = ({ closeModal, isOpen, camp }) => {
 
             {/* stripe checkout form */}
             <Elements stripe={stripePromise}>
-              <CheckoutForm totalFees={totalFees} closeModal={closeModal} registeredData={registeredData} />
+              <CheckoutForm totalFees={totalFees} closeModal={closeModal} registeredData={registeredData} fetchPlant={fetchPlant} />
             </Elements>
           </DialogPanel>
         </div>

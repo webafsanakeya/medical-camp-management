@@ -1,17 +1,18 @@
 import React from 'react';
+import { PulseLoader} from 'react-spinners';
 
-const LoadingSpinner = ({ loader: Loader, smallHeight = false, color = '#36d7b7', size = 15 }) => {
+const LoadingSpinner = ({ smallHeight }) => {
   return (
     <div
-      className={` ${smallHeight ? 'h-[250px]' : 'h-[70vh]'} 
+      className={` ${smallHeight ? 'h-[250px]' : 'h-[70vh]'}
       flex 
       flex-col 
       justify-center 
-      items-center`}
+      items-center `}
     >
-      {Loader && <Loader color={color} size={size} />}
+      <PulseLoader size={15} color='#15a249' />
     </div>
-  );
-};
+  )
+}
 
-export default LoadingSpinner;
+export default LoadingSpinner

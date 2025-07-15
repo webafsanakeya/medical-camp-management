@@ -6,13 +6,30 @@ import Heading from "@/components/ui/Shared/Heading";
 import LoadingSpinner from "@/components/ui/Shared/LoadingSpinner";
 import useAuth from "@/hooks/useAuth";
 import useRole from "@/hooks/useRole";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import { useState } from "react";
-import { useLoaderData } from "react-router";
+import { useParams } from "react-router";
 
 const CampDetails = () => {
-  const {user} = useAuth()
+  const { id } = useParams();
+  const { user } = useAuth();
   const [role, isRoleLoading] = useRole();
-  const camp = useLoaderData();
+
+  const {
+    data: camp,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["camp", id],
+    queryFn: async () => {
+      const { data } = await axios(
+        `${import.meta.env.VITE_API_URL}/camp/${id}`
+      );
+      return data;
+    },
+  });
+
   const [isOpen, setIsOpen] = useState(false);
 
   if (!camp || typeof camp !== "object") return <p>We are Sorry!</p>;
@@ -31,7 +48,7 @@ const CampDetails = () => {
   } = camp || {};
 
   const closeModal = () => setIsOpen(false);
-  if(isRoleLoading) return <LoadingSpinner />
+  if (isRoleLoading || isLoading) return <LoadingSpinner />;
 
   return (
     <Container>
@@ -103,14 +120,26 @@ const CampDetails = () => {
             <p className="font-bold text-3xl text-gray-500">Fees: $10</p>
             <div className="">
               <Button
-              disabled={!user || user?.email === organizer?.email || role !== "participant"} onClick={() => setIsOpen(true)} label={user? 'Join Camp' : 'Login to Join Camp'} />
+                disabled={
+                  !user ||
+                  user?.email === organizer?.email ||
+                  role !== "participant"
+                }
+                onClick={() => setIsOpen(true)}
+                label={user ? "Join Camp" : "Login to Join Camp"}
+              />
             </div>
           </div>
 
           <hr className="my-6" />
 
           {/* Join Camp Modal */}
-          <JoinCampModal camp={camp} isOpen={isOpen} closeModal={closeModal} />
+          <JoinCampModal
+            camp={camp}
+            isOpen={isOpen}
+            closeModal={closeModal}
+            fetchPlant={refetch}
+          />
         </div>
       </div>
     </Container>
