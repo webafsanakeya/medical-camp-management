@@ -4,7 +4,7 @@ import MenuItem from "./MenuItem";
 import { useState } from "react";
 
 import BecomeOrganizerModal from "@/components/Modal/BecomeOrganizerModal";
-const ParticipantMenu = () => {
+const ParticipantsMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const closeModal = () => {
@@ -29,4 +29,4 @@ const ParticipantMenu = () => {
   );
 };
 
-export default ParticipantMenu;
+export default ParticipantsMenu;

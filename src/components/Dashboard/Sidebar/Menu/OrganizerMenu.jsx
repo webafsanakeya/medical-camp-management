@@ -9,11 +9,11 @@ const OrganizerMenu = () => {
         label="Add Camp"
         address="add-camp"
       />
-      <MenuItem icon={MdHomeWork} label="My Inventory" address="my-inventory" />
+      <MenuItem icon={MdHomeWork} label="Manage Camps" address="manage-camps" />
       <MenuItem
         icon={MdOutlineManageHistory}
-        label="Manage Registered Camp"
-        address="manage-registered-camp"
+        label="Manage Registered"
+        address="manage-registered"
       />
     </>
   );

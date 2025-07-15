@@ -1,7 +1,7 @@
-import OrganizerOrderDataRow from "@/components/Dashboard/TableRows/OrganizerOrderDataRow"
+import CampDataRow from "@/components/Dashboard/TableRows/CampDataRow"
 
 
-const ManageRegisteredCamps = () => {
+const ManageCamps = () => {
   return (
     <>
       <div className='container mx-auto px-4 sm:px-8'>
@@ -15,13 +15,19 @@ const ManageRegisteredCamps = () => {
                       scope='col'
                       className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
                     >
+                      Image
+                    </th>
+                    <th
+                      scope='col'
+                      className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
+                    >
                       Name
                     </th>
                     <th
                       scope='col'
                       className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
                     >
-                      Participant
+                      Category
                     </th>
                     <th
                       scope='col'
@@ -35,29 +41,23 @@ const ManageRegisteredCamps = () => {
                     >
                       Quantity
                     </th>
-                    <th
-                      scope='col'
-                      className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
-                    >
-                      Address
-                    </th>
-                    <th
-                      scope='col'
-                      className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
-                    >
-                      Status
-                    </th>
 
                     <th
                       scope='col'
                       className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
                     >
-                      Action
+                      Delete
+                    </th>
+                    <th
+                      scope='col'
+                      className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
+                    >
+                      Update
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  <OrganizerOrderDataRow />
+                  <CampDataRow></CampDataRow>
                 </tbody>
               </table>
             </div>
@@ -68,4 +68,4 @@ const ManageRegisteredCamps = () => {
   )
 }
 
-export default ManageRegisteredCamps
+export default ManageCamps

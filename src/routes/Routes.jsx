@@ -9,12 +9,16 @@ import ErrorPage from "@/pages/ErrorPage";
 import PrivateRoute from "./PrivateRoute";
 import Statistics from "@/pages/Dashboard/Common/Statistics";
 import AddCamp from "@/pages/Dashboard/Organizer/AddCamp";
-import MyInventory from "@/pages/Dashboard/Organizer/MyInventory";
-import ManageUsers from "@/pages/Dashboard/Admin/ManageUsers";
+import MyInventory from "@/pages/Dashboard/Organizer/ManageCamps";
+
 import RegisteredCamp from "@/pages/Dashboard/Participant/RegisteredCamp";
-import ManageRegisteredCamps from "@/pages/Dashboard/Organizer/ManageRegisteredCamps";
+
 import Login from "@/pages/JoinUs/Login/Login";
 import Profile from "@/pages/Dashboard/Common/Profile";
+import ManageRegistered from "@/pages/Dashboard/Organizer/ManageRegistered";
+import AdminRoute from "./AdminRoute";
+import ManageUsers from "@/pages/Dashboard/Admin/ManageUsers";
+import OrganizerRoute from "./OrganizerRoute";
 
 export const router = createBrowserRouter([
   {
@@ -25,13 +29,11 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-        loader: () => fetch(`${import.meta.env.VITE_API_URL}/camps`)
+        loader: () => fetch(`${import.meta.env.VITE_API_URL}/camps`),
       },
       {
-        path: '/camp/:id',
+        path: "/camp/:id",
         element: <CampDetails />,
-        
-
       },
     ],
   },
@@ -41,10 +43,10 @@ export const router = createBrowserRouter([
   },
   {
     path: "/signup",
-    element: <Signup />
+    element: <Signup />,
   },
   {
-    path: '/dashboard',
+    path: "/dashboard",
     element: (
       <PrivateRoute>
         <DashboardLayout />
@@ -55,32 +57,39 @@ export const router = createBrowserRouter([
         index: true,
         element: (
           <PrivateRoute>
-           <Statistics />
+           <AdminRoute>
+             <Statistics />
+           </AdminRoute>
           </PrivateRoute>
         ),
       },
       {
-        path: 'add-camp',
+        path: "add-camp",
         element: (
           <PrivateRoute>
-           <AddCamp />
+            <OrganizerRoute>
+              <AddCamp />
+            </OrganizerRoute>
           </PrivateRoute>
         ),
-
       },
       {
-        path: 'my-inventory',
+        path: "my-inventory",
         element: (
           <PrivateRoute>
-          <MyInventory />
+            <OrganizerRoute>
+              <MyInventory />
+            </OrganizerRoute>
           </PrivateRoute>
         ),
       },
-        {
-        path: 'manage-users',
+      {
+        path: "/dashboard/manage-users",
         element: (
           <PrivateRoute>
-            <ManageUsers />
+            <AdminRoute>
+              <ManageUsers />
+            </AdminRoute>
           </PrivateRoute>
         ),
       },
@@ -92,8 +101,8 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-         {
-        path: 'registered-camp',
+      {
+        path: "registered-camp",
         element: (
           <PrivateRoute>
             <RegisteredCamp />
@@ -101,10 +110,14 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'manage-registered-camp',
-        element: <ManageRegisteredCamps />
+        path: "manage-registered",
+        element: <PrivateRoute>
+          <OrganizerRoute>
+            <ManageRegistered />
+          </OrganizerRoute>
+          
+        </PrivateRoute>
       },
     ],
   },
-  
 ]);

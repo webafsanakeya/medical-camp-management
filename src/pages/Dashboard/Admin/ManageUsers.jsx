@@ -1,6 +1,21 @@
 import UserDataRow from "@/components/Dashboard/TableRows/UserDataRow"
+import LoadingSpinner from "@/components/ui/Shared/LoadingSpinner"
+import useAxiosSecure from "@/hooks/useAxiosSecure"
+import { useQuery } from "@tanstack/react-query"
+
 
 const ManageUsers = () => {
+  const axiosSecure = useAxiosSecure()
+  const {data: users, isLoading} = useQuery({
+    queryKey: ['users'],
+    queryFn: async () =>{
+      const {data} = await axiosSecure('/all-users')
+      return data
+
+    }
+  })
+  console.log(users);
+   if(isLoading) return <LoadingSpinner />
   return (
     <>
       <div className='container mx-auto px-4 sm:px-8'>
@@ -38,7 +53,9 @@ const ManageUsers = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <UserDataRow />
+                 {users.map(user => (
+                   <UserDataRow key={user?._id} user={user} />
+                 ))}
                 </tbody>
               </table>
             </div>
