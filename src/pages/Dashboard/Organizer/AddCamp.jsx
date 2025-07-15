@@ -22,6 +22,7 @@ const AddCamp = () => {
     const dateTime = form?.dateTime?.value;
     const location = form?.location?.value;
     const doctor = form?.doctor?.value;
+    const fees = form?.fees?.value;
     const participantCount = form?.participantCount?.value;
     
 
@@ -34,7 +35,8 @@ const AddCamp = () => {
         dateTime,
         location,
         doctor,
-        participantCount,
+        fees: parseFloat(fees),
+        participantCount: parseInt(participantCount),
         image: uploadedImage,
         organizer: {
           name: user?.displayName,

@@ -84,7 +84,7 @@ const AddCampForm = ({
               name="participantCount"
               type="number"
               required
-              placeholder="e.g. 50"
+              placeholder="Available Participant"
               className="w-full px-4 py-2 border border-lime-300 rounded-md focus:outline-lime-500"
             />
           </div>

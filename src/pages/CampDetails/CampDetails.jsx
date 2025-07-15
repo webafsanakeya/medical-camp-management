@@ -1,16 +1,19 @@
 import JoinCampModal from "@/components/Modal/JoinCampModal";
-import { Button } from "@/components/ui/button";
+import Button from "@/components/ui/Shared/Button/Button";
+
 import Container from "@/components/ui/Shared/Container";
 import Heading from "@/components/ui/Shared/Heading";
+import useAuth from "@/hooks/useAuth";
 import { useState } from "react";
 import { useLoaderData } from "react-router";
 
 const CampDetails = () => {
+  const {user} = useAuth()
   const camp = useLoaderData();
   const [isOpen, setIsOpen] = useState(false);
 
-  console.log(camp);
-  if(!camp || typeof camp !== 'object') return <p>We are Sorry!</p>
+  if (!camp || typeof camp !== "object") return <p>We are Sorry!</p>;
+
   const {
     _id,
     campName,
@@ -23,7 +26,6 @@ const CampDetails = () => {
     description,
     image,
   } = camp || {};
-  
 
   const closeModal = () => setIsOpen(false);
 
@@ -52,7 +54,6 @@ const CampDetails = () => {
             <p>
               <span className="font-semibold">📅 Date & Time:</span> {dateTime}
             </p>
-
             <p>
               <span className="font-semibold">👨‍⚕️ Healthcare Professional:</span>{" "}
               {doctor}
@@ -63,18 +64,8 @@ const CampDetails = () => {
             <p className="text-neutral-600 mt-4">{description}</p>
           </div>
 
-          <div
-            className="
-                text-xl 
-                font-semibold 
-                flex 
-                flex-row 
-                items-center
-                gap-2
-              "
-          >
+          <div className="text-xl font-semibold flex flex-row items-center gap-2">
             <div>Organizer: {organizer?.name}</div>
-
             <img
               className="rounded-full"
               height="30"
@@ -84,6 +75,7 @@ const CampDetails = () => {
               src={organizer?.image}
             />
           </div>
+
           <hr className="my-6" />
 
           <div>
@@ -94,17 +86,27 @@ const CampDetails = () => {
           </div>
 
           <hr className="my-6" />
-          <div >
+
+          <div>
             <p>
               <span className="font-semibold">💰 Camp Fee:</span> {fees}
             </p>
           </div>
 
-          <div className="mt-6">
-            <Button label="Join Camp" onClick={() => setIsOpen(true)} />
+          <hr className="my-6" />
+
+          <div className="flex justify-between items-center">
+            <p className="font-bold text-3xl text-gray-500">Fees: $10</p>
+            <div className="">
+              <Button
+              disabled={!user || user?.email === organizer?.email} onClick={() => setIsOpen(true)} label={user? 'Join Camp' : 'Login to Join Camp'} />
+            </div>
           </div>
 
-          <JoinCampModal isOpen={isOpen} closeModal={closeModal} />
+          <hr className="my-6" />
+
+          {/* Join Camp Modal */}
+          <JoinCampModal camp={camp} isOpen={isOpen} closeModal={closeModal} />
         </div>
       </div>
     </Container>

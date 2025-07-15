@@ -12,9 +12,7 @@ export default function Footer() {
         <div>
           <div className="flex items-center">
          <MediCampLogo />
-        <Link to="/" className="text-xl font-bold -ml-4">
-          MediCamp
-        </Link>
+      
   </div>
           <p className="text-muted-foreground mt-2">
             A platform to manage and join medical camps with ease.
