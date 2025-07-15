@@ -75,28 +75,28 @@ const CheckoutForm = ({ totalFees, closeModal, registeredData }) => {
         },
       },
     });
-    if(result?.error){
-        setCardError(result?.error?.message)
-        return
+    if (result?.error) {
+      setCardError(result?.error?.message);
+      return;
     }
-    if(result?.paymentIntent?.status === 'succeeded'){
-        // save order data in db
-        registeredData.transactionId = result?.paymentIntent?.id
-       try{
-         const {data} = await axiosSecure.post('/registered', registeredData)
-       if(data?.insertedId){
-      toast.success('Registration done successfully!')
-    }
-       }catch(err){
+    if (result?.paymentIntent?.status === "succeeded") {
+      // save registered data in db
+      registeredData.transactionId = result?.paymentIntent?.id;
+      try {
+        const { data } = await axiosSecure.post("/registered", registeredData);
+        if (data?.insertedId) {
+          toast.success("Registration done successfully!");
+        }
+         const {data: result} = await axiosSecure.patch(`/participantCount-update/${registeredData?.campId}`, {participantCountToUpdate: registeredData?.participantCount, status: 'decrease'})
+        console.log(result);
+      } catch (err) {
         console.log(err);
-       }
-       finally{
-         setProcessing(false)
-        setCardError(null)
-        closeModal()
-       }
-        // update product quantity in db from plant collection
-
+      } finally {
+        setProcessing(false);
+        setCardError(null);
+        closeModal();
+      }
+      // update product quantity in db from plant collection
     }
     console.log(result);
   };

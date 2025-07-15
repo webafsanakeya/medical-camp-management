@@ -10,15 +10,20 @@ import ParticipantMenu from './Menu/ParticipantsMenu'
 import OrganizerMenu from './Menu/OrganizerMenu'
 import useAuth from '../../../hooks/useAuth'
 import MediCampLogo from '@/components/ui/Shared/MediCampLogo/MediCampLogo'
+import useRole from '@/hooks/useRole'
+import LoadingSpinner from '@/components/ui/Shared/LoadingSpinner'
 
 const Sidebar = () => {
   const { logOut } = useAuth()
   const [isActive, setActive] = useState(false)
+  const [role, isRoleLoading] = useRole()
+  console.log(role, isRoleLoading);
 
   // Sidebar Responsive Handler
   const handleToggle = () => {
     setActive(!isActive)
   }
+  if(isRoleLoading) return <LoadingSpinner/>
   return (
     <>
       {/* Small Screen Navbar */}
@@ -58,11 +63,12 @@ const Sidebar = () => {
           <div className='flex flex-col justify-between flex-1 mt-6'>
             <nav>
               {/*  Menu Items */}
-              <ParticipantMenu></ParticipantMenu>
-              <OrganizerMenu></OrganizerMenu>
+             {role === 'participant' &&  <ParticipantMenu />}
+              {role === 'organizer' && <OrganizerMenu />}
+              {role === 'admin' && <AdminMenu />}
 
            
-              <AdminMenu />
+              
             </nav>
           </div>
         </div>

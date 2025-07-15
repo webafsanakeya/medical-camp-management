@@ -3,12 +3,15 @@ import Button from "@/components/ui/Shared/Button/Button";
 
 import Container from "@/components/ui/Shared/Container";
 import Heading from "@/components/ui/Shared/Heading";
+import LoadingSpinner from "@/components/ui/Shared/LoadingSpinner";
 import useAuth from "@/hooks/useAuth";
+import useRole from "@/hooks/useRole";
 import { useState } from "react";
 import { useLoaderData } from "react-router";
 
 const CampDetails = () => {
   const {user} = useAuth()
+  const [role, isRoleLoading] = useRole();
   const camp = useLoaderData();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -28,6 +31,7 @@ const CampDetails = () => {
   } = camp || {};
 
   const closeModal = () => setIsOpen(false);
+  if(isRoleLoading) return <LoadingSpinner />
 
   return (
     <Container>
@@ -99,7 +103,7 @@ const CampDetails = () => {
             <p className="font-bold text-3xl text-gray-500">Fees: $10</p>
             <div className="">
               <Button
-              disabled={!user || user?.email === organizer?.email} onClick={() => setIsOpen(true)} label={user? 'Join Camp' : 'Login to Join Camp'} />
+              disabled={!user || user?.email === organizer?.email || role !== "participant"} onClick={() => setIsOpen(true)} label={user? 'Join Camp' : 'Login to Join Camp'} />
             </div>
           </div>
 

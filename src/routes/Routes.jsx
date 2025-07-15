@@ -76,7 +76,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      {
+        {
         path: 'manage-users',
         element: (
           <PrivateRoute>

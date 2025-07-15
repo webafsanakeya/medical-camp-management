@@ -12,8 +12,8 @@ const OrganizerMenu = () => {
       <MenuItem icon={MdHomeWork} label="My Inventory" address="my-inventory" />
       <MenuItem
         icon={MdOutlineManageHistory}
-        label="Manage Orders"
-        address="manage-orders"
+        label="Manage Registered Camp"
+        address="manage-registered-camp"
       />
     </>
   );
