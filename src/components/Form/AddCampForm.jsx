@@ -71,7 +71,7 @@ const AddCampForm = ({
             />
           </div>
 
-          {/* E. Participant Count */}
+           {/* E. Participant Count */}
           <div className="space-y-1">
             <label
               htmlFor="participantCount"
@@ -87,7 +87,7 @@ const AddCampForm = ({
               placeholder="Available Participant"
               className="w-full px-4 py-2 border border-lime-300 rounded-md focus:outline-lime-500"
             />
-          </div>
+          </div> 
 
           {/* F. Camp Fees */}
           <div className="space-y-1">

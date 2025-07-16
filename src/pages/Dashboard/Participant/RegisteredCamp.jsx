@@ -1,6 +1,28 @@
-import ParticipantOrderDataRow from "@/components/Dashboard/TableRows/ParticipantOrderDataRow"
+import ParticipantRegisterDataRow from "@/components/Dashboard/TableRows/ParticipantRegisterDataRow";
+import LoadingSpinner from "@/components/ui/Shared/LoadingSpinner";
+import useAuth from "@/hooks/useAuth"
+import useAxiosSecure from "@/hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 const RegisteredCamp = () => {
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
+
+    const {
+    data: registers,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["registers", user?.email],
+    queryFn: async () => {
+      const { data } = await axiosSecure(
+        `/registers/participant/${user?.email}`
+      );
+      return data;
+    },
+  });
+  if (isLoading) return <LoadingSpinner />;
+
   return (
     <div className='container mx-auto px-4 sm:px-8'>
       <div className='py-8'>
@@ -17,16 +39,12 @@ const RegisteredCamp = () => {
                     Camp Name
                   </th>
                   <th className='px-5 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal'>
-                    Date & Time
+                   Participant Count
                   </th>
+                 
+              
                   <th className='px-5 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal'>
-                    Location
-                  </th>
-                  <th className='px-5 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal'>
-                    Healthcare Professional
-                  </th>
-                  <th className='px-5 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal'>
-                    Fee
+                    Fees
                   </th>
                   <th className='px-5 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal'>
                     Status
@@ -37,7 +55,7 @@ const RegisteredCamp = () => {
                 </tr>
               </thead>
               <tbody>
-                <ParticipantOrderDataRow />
+                {registers.map(register => <ParticipantRegisterDataRow key={register._id} register={register} refetch={refetch}/>)}
               </tbody>
             </table>
           </div>

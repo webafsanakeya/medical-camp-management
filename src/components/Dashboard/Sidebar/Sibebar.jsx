@@ -6,12 +6,12 @@ import { AiOutlineBars } from 'react-icons/ai'
 import MenuItem from './Menu/MenuItem'
 import AdminMenu from './Menu/AdminMenu'
 import { Link } from 'react-router'
-import ParticipantMenu from './Menu/ParticipantsMenu'
 import OrganizerMenu from './Menu/OrganizerMenu'
 import useAuth from '../../../hooks/useAuth'
 import MediCampLogo from '@/components/ui/Shared/MediCampLogo/MediCampLogo'
 import useRole from '@/hooks/useRole'
 import LoadingSpinner from '@/components/ui/Shared/LoadingSpinner'
+import ParticipantsMenu from './Menu/ParticipantsMenu'
 
 const Sidebar = () => {
   const { logOut } = useAuth()
@@ -63,7 +63,7 @@ const Sidebar = () => {
           <div className='flex flex-col justify-between flex-1 mt-6'>
             <nav>
               {/*  Menu Items */}
-             {role === 'participant' &&  <ParticipantMenu />}
+             {role === 'participant' &&  <ParticipantsMenu />}
               {role === 'organizer' &&  <OrganizerMenu />}
               {role === 'admin' && <AdminMenu />}
 

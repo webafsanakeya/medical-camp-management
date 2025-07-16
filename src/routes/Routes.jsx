@@ -19,6 +19,7 @@ import ManageRegistered from "@/pages/Dashboard/Organizer/ManageRegistered";
 import AdminRoute from "./AdminRoute";
 import ManageUsers from "@/pages/Dashboard/Admin/ManageUsers";
 import OrganizerRoute from "./OrganizerRoute";
+import ManageCamps from "@/pages/Dashboard/Organizer/ManageCamps";
 
 export const router = createBrowserRouter([
   {
@@ -57,9 +58,7 @@ export const router = createBrowserRouter([
         index: true,
         element: (
           <PrivateRoute>
-           <AdminRoute>
-             <Statistics />
-           </AdminRoute>
+            <Statistics />
           </PrivateRoute>
         ),
       },
@@ -74,17 +73,17 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "my-inventory",
+        path: "manage-camps",
         element: (
           <PrivateRoute>
             <OrganizerRoute>
-              <MyInventory />
+              <ManageCamps></ManageCamps>
             </OrganizerRoute>
           </PrivateRoute>
         ),
       },
       {
-        path: "/dashboard/manage-users",
+        path: "manage-users",
         element: (
           <PrivateRoute>
             <AdminRoute>
@@ -111,13 +110,15 @@ export const router = createBrowserRouter([
       },
       {
         path: "manage-registered",
-        element: <PrivateRoute>
-          <OrganizerRoute>
-            <ManageRegistered />
-          </OrganizerRoute>
-          
-        </PrivateRoute>
+        element: (
+          <PrivateRoute>
+            <OrganizerRoute>
+              <ManageRegistered />
+            </OrganizerRoute>
+          </PrivateRoute>
+        ),
       },
+ 
     ],
   },
 ]);
