@@ -5,6 +5,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
+  reload,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -42,11 +43,13 @@ const AuthProvider = ({ children }) => {
     return signOut(auth)
   }
 
-  const updateUserProfile = (name, photo) => {
-    return updateProfile(auth.currentUser, {
+  const updateUserProfile = async(name, photo) => {
+    await updateProfile(auth.currentUser, {
       displayName: name,
       photoURL: photo,
     })
+    await reload(auth.currentUser)
+    setUser({...auth.currentUser})
   }
 
   // onAuthStateChange

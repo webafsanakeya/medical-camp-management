@@ -9,7 +9,7 @@ import ErrorPage from "@/pages/ErrorPage";
 import PrivateRoute from "./PrivateRoute";
 import Statistics from "@/pages/Dashboard/Common/Statistics";
 import AddCamp from "@/pages/Dashboard/Organizer/AddCamp";
-import MyInventory from "@/pages/Dashboard/Organizer/ManageCamps";
+
 
 import RegisteredCamp from "@/pages/Dashboard/Participant/RegisteredCamp";
 
@@ -21,6 +21,9 @@ import ManageUsers from "@/pages/Dashboard/Admin/ManageUsers";
 import OrganizerRoute from "./OrganizerRoute";
 import ManageCamps from "@/pages/Dashboard/Organizer/ManageCamps";
 
+
+import AvailableCamps from "@/components/Home/AvailableCamps";
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -31,6 +34,12 @@ export const router = createBrowserRouter([
         path: "/",
         element: <Home />,
         loader: () => fetch(`${import.meta.env.VITE_API_URL}/camps`),
+      },
+      {
+        path: '/available-camps',
+        element: <AvailableCamps />,
+        loader: () => fetch(`${import.meta.env.VITE_API_URL}/camps`),
+
       },
       {
         path: "/camp/:id",

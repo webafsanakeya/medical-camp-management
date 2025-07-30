@@ -105,7 +105,12 @@ const JoinCampModal = ({ closeModal, isOpen, camp, fetchPlant }) => {
             </div>
             <div className="mt-2">
               <p className="text-sm text-gray-500">
-                Participant : {user?.displayName}
+                Participant name : {user?.displayName}
+              </p>
+            </div>
+              <div className="mt-2">
+              <p className="text-sm text-gray-500">
+                Participant email : {user?.email}
               </p>
             </div>
             <div className="mt-2">

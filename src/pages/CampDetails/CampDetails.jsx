@@ -108,16 +108,10 @@ const CampDetails = () => {
 
           <hr className="my-6" />
 
-          <div>
-            <p>
-              <span className="font-semibold">💰 Camp Fee:</span> {fees}
-            </p>
-          </div>
-
-          <hr className="my-6" />
+      
 
           <div className="flex justify-between items-center">
-            <p className="font-bold text-3xl text-gray-500">Fees: $10</p>
+            <p className="font-bold text-3xl text-gray-500">Camp Fees: ${fees}</p>
             <div className="">
               <Button
                 disabled={

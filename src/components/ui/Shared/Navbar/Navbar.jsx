@@ -20,7 +20,6 @@ export default function Navbar() {
       <div className="flex justify-between items-center">
         <div className="flex items-center">
           <MediCampLogo />
-          
         </div>
 
         {/* Mobile Hamburger Menu */}
@@ -47,15 +46,27 @@ export default function Navbar() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Avatar className="cursor-pointer">
-                  <AvatarImage src={user?.photoURL} />
-                  <AvatarFallback>{user?.name?.charAt(0)}</AvatarFallback>
+                  <AvatarImage
+                    src={user?.photoURL || undefined}
+                    alt={user?.displayName || "Profile"}
+                  />
+                  <AvatarFallback>
+                    {(user?.displayName?.[0] || "U").toUpperCase()} 
+                  </AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem disabled>{user?.name}</DropdownMenuItem>
+              <DropdownMenuContent align="end" sideOffset={8}>
+                {/* {User name (not clickable) } */}
+                <DropdownMenuItem disabled className="font-semibold">
+                  {user?.displayName || "User"}
+                  </DropdownMenuItem>
+
+                  {/* Dashboard Link */}
                 <DropdownMenuItem asChild>
                   <Link to="/dashboard">Dashboard</Link>
                 </DropdownMenuItem>
+
+                {/* Logout button */}
                 <DropdownMenuItem
                   onClick={() => {
                     logOut();
@@ -91,7 +102,7 @@ export default function Navbar() {
             </Link>
           ) : (
             <div className="flex flex-col gap-2">
-              <div className="px-4 text-sm font-medium">{user?.name}</div>
+              <div className="px-4 text-sm font-medium">{user?.displayName || "User"}</div>
               <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)}>
                 <Button variant="ghost" className="w-full">
                   Dashboard
@@ -111,7 +122,6 @@ export default function Navbar() {
           )}
         </div>
       )}
-      
     </nav>
   );
 }
