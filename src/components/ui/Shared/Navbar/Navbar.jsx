@@ -15,62 +15,61 @@ import useAuth from "@/hooks/useAuth";
 export default function Navbar() {
   const { user, logOut } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  return (
-    <nav className="border-b shadow-sm px-4 py-1">
-      <div className="flex justify-between items-center">
-        <div className="flex items-center">
-          <MediCampLogo />
-        </div>
 
-        {/* Mobile Hamburger Menu */}
+  return (
+    <nav className="sticky top-0 z-50 bg-white border-b shadow-sm px-4 py-2">
+      <div className="flex justify-between items-center max-w-7xl mx-auto">
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-2">
+          <MediCampLogo />
+        </Link>
+
+        {/* Mobile Hamburger */}
         <button
-          className="md:hidden"
+          className="md:hidden p-2 rounded hover:bg-gray-100"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           <Menu className="w-6 h-6" />
         </button>
 
-        {/* Navigation Links */}
-        <div className="hidden md:flex space-x-4">
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center gap-4">
           <Link to="/available-camps">
-            <Button variant="ghost">Home</Button>
+            <Button variant="ghost" className="hover:bg-gray-100">
+              Available Camps
+            </Button>
           </Link>
-          <Link to="/available-camps">
-            <Button variant="ghost">Available Camps</Button>
-          </Link>
+
           {!user ? (
             <Link to="/signup">
-              <Button>Join Us</Button>
+              <Button className="hover:bg-blue-600 transition">Join Us</Button>
             </Link>
           ) : (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Avatar className="cursor-pointer">
+                <Avatar className="cursor-pointer hover:ring-2 hover:ring-primary transition">
                   <AvatarImage
                     src={user?.photoURL || undefined}
                     alt={user?.displayName || "Profile"}
                   />
                   <AvatarFallback>
-                    {(user?.displayName?.[0] || "U").toUpperCase()} 
+                    {(user?.displayName?.[0] || "U").toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" sideOffset={8}>
-                {/* {User name (not clickable) } */}
-                <DropdownMenuItem disabled className="font-semibold">
-                  {user?.displayName || "User"}
-                  </DropdownMenuItem>
 
-                  {/* Dashboard Link */}
+              <DropdownMenuContent align="end" sideOffset={8} className="w-48">
+                <DropdownMenuItem disabled className="font-medium text-gray-700">
+                  {user?.displayName || "User"}
+                </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/dashboard">Dashboard</Link>
                 </DropdownMenuItem>
-
-                {/* Logout button */}
                 <DropdownMenuItem
                   onClick={() => {
                     logOut();
                   }}
+                  className="text-red-600"
                 >
                   Logout
                 </DropdownMenuItem>
@@ -79,19 +78,12 @@ export default function Navbar() {
           )}
         </div>
       </div>
+
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden mt-4 flex flex-col space-y-2">
-          <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
-            <Button variant="ghost" className="w-full">
-              Home
-            </Button>
-          </Link>
-          <Link
-            to="/available-camps"
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            <Button variant="ghost" className="w-full">
+        <div className="md:hidden mt-3 space-y-2 transition-all animate-in slide-in-from-top-4">
+          <Link to="/available-camps" onClick={() => setIsMobileMenuOpen(false)}>
+            <Button variant="ghost" className="w-full justify-start">
               Available Camps
             </Button>
           </Link>
@@ -101,16 +93,18 @@ export default function Navbar() {
               <Button className="w-full">Join Us</Button>
             </Link>
           ) : (
-            <div className="flex flex-col gap-2">
-              <div className="px-4 text-sm font-medium">{user?.displayName || "User"}</div>
+            <>
+              <div className="px-4 text-sm font-medium text-gray-700">
+                {user?.displayName || "User"}
+              </div>
               <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)}>
-                <Button variant="ghost" className="w-full">
+                <Button variant="ghost" className="w-full justify-start">
                   Dashboard
                 </Button>
               </Link>
               <Button
                 variant="ghost"
-                className="w-full"
+                className="w-full justify-start text-red-600"
                 onClick={() => {
                   setIsMobileMenuOpen(false);
                   logOut();
@@ -118,7 +112,7 @@ export default function Navbar() {
               >
                 Logout
               </Button>
-            </div>
+            </>
           )}
         </div>
       )}
