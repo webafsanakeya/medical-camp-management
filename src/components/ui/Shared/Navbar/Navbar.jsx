@@ -16,17 +16,34 @@ export default function Navbar() {
   const { user, logOut } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  // Define route sets
+  const publicLinks = [
+    { label: "Home", path: "/" },
+    { label: "Available Camps", path: "/available-camps" },
+    { label: "About", path: "/about" },
+  ];
+
+  const privateLinks = [
+    { label: "Home", path: "/" },
+    { label: "Available Camps", path: "/available-camps" },
+    { label: "Dashboard", path: "/dashboard" },
+    { label: "My Bookings", path: "/bookings" },
+    { label: "About", path: "/about" },
+  ];
+
+  const linksToShow = user ? privateLinks : publicLinks;
+
   return (
-    <nav className="sticky top-0 z-50 bg-white border-b shadow-sm px-4 py-2">
-      <div className="flex justify-between items-center max-w-7xl mx-auto">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-primary text-white shadow-md">
+      <div className="flex justify-between items-center max-w-7xl mx-auto px-4 py-3">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
-          <MediCampLogo />
+          <MediCampLogo invert/>
         </Link>
 
         {/* Mobile Hamburger */}
         <button
-          className="md:hidden p-2 rounded hover:bg-gray-100"
+          className="md:hidden p-2 rounded hover:bg-primary/80 transition"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           <Menu className="w-6 h-6" />
@@ -34,20 +51,27 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-4">
-          <Link to="/available-camps">
-            <Button variant="ghost" className="hover:bg-gray-100">
-              Available Camps
-            </Button>
-          </Link>
+          {linksToShow.map((link) => (
+            <Link key={link.path} to={link.path}>
+              <Button
+                variant="ghost"
+                className="text-white hover:text-secondary hover:bg-primary/80 transition"
+              >
+                {link.label}
+              </Button>
+            </Link>
+          ))}
 
           {!user ? (
             <Link to="/signup">
-              <Button className="hover:bg-blue-600 transition">Join Us</Button>
+              <Button className="bg-secondary text-primary hover:bg-secondary/90 transition">
+                Join Us
+              </Button>
             </Link>
           ) : (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Avatar className="cursor-pointer hover:ring-2 hover:ring-primary transition">
+                <Avatar className="cursor-pointer ring-2 ring-secondary transition">
                   <AvatarImage
                     src={user?.photoURL || undefined}
                     alt={user?.displayName || "Profile"}
@@ -65,11 +89,12 @@ export default function Navbar() {
                 <DropdownMenuItem asChild>
                   <Link to="/dashboard">Dashboard</Link>
                 </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/bookings">My Bookings</Link>
+                </DropdownMenuItem>
                 <DropdownMenuItem
-                  onClick={() => {
-                    logOut();
-                  }}
-                  className="text-red-600"
+                  onClick={logOut}
+                  className="text-red-600 cursor-pointer"
                 >
                   Logout
                 </DropdownMenuItem>
@@ -81,30 +106,30 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden mt-3 space-y-2 transition-all animate-in slide-in-from-top-4">
-          <Link to="/available-camps" onClick={() => setIsMobileMenuOpen(false)}>
-            <Button variant="ghost" className="w-full justify-start">
-              Available Camps
-            </Button>
-          </Link>
+        <div className="md:hidden bg-primary text-white mt-2 space-y-2 px-4 pb-3 animate-in slide-in-from-top-4">
+          {linksToShow.map((link) => (
+            <Link
+              key={link.path}
+              to={link.path}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <Button variant="ghost" className="w-full justify-start text-white hover:text-secondary">
+                {link.label}
+              </Button>
+            </Link>
+          ))}
 
           {!user ? (
             <Link to="/signup" onClick={() => setIsMobileMenuOpen(false)}>
-              <Button className="w-full">Join Us</Button>
+              <Button className="w-full bg-secondary text-primary hover:bg-secondary/90">
+                Join Us
+              </Button>
             </Link>
           ) : (
             <>
-              <div className="px-4 text-sm font-medium text-gray-700">
-                {user?.displayName || "User"}
-              </div>
-              <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)}>
-                <Button variant="ghost" className="w-full justify-start">
-                  Dashboard
-                </Button>
-              </Link>
               <Button
                 variant="ghost"
-                className="w-full justify-start text-red-600"
+                className="w-full justify-start text-red-300 hover:text-red-500"
                 onClick={() => {
                   setIsMobileMenuOpen(false);
                   logOut();

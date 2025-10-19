@@ -31,29 +31,16 @@ const RegisteredCamp = () => {
           <div className='inline-block min-w-full shadow rounded-lg overflow-hidden'>
             <table className='min-w-full leading-normal'>
               <thead>
-                <tr>
-                  <th className='px-5 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal'>
-                    Camp Image
-                  </th>
-                  <th className='px-5 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal'>
-                    Camp Name
-                  </th>
-                  <th className='px-5 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal'>
-                   Participant Count
-                  </th>
-                 
-              
-                  <th className='px-5 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal'>
-                    Fees
-                  </th>
-                  <th className='px-5 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal'>
-                    Status
-                  </th>
-                  <th className='px-5 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal'>
-                    Action
-                  </th>
-                </tr>
-              </thead>
+  <tr>
+    <th className="px-5 py-3 bg-white border-b border-gray-200">Camp Image</th>
+    <th className="px-5 py-3 bg-white border-b border-gray-200">Camp Name</th>
+    <th className="px-5 py-3 bg-white border-b border-gray-200">Participant Count</th>
+    <th className="px-5 py-3 bg-white border-b border-gray-200">Fees</th>
+    <th className="px-5 py-3 bg-white border-b border-gray-200">Status</th>
+    <th className="px-5 py-3 bg-white border-b border-gray-200">Action</th>
+    <th className="px-5 py-3 bg-white border-b border-gray-200">Feedback</th> 
+  </tr>
+</thead>
               <tbody>
                 {registers.map(register => <ParticipantRegisterDataRow key={register._id} register={register} refetch={refetch}/>)}
               </tbody>

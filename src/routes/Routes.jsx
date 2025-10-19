@@ -23,6 +23,9 @@ import ManageCamps from "@/pages/Dashboard/Organizer/ManageCamps";
 
 
 import AvailableCamps from "@/components/Home/AvailableCamps";
+import MyBookings from "@/pages/Dashboard/Common/MyBookings";
+import About from "@/pages/About/About";
+
 
 export const router = createBrowserRouter([
   {
@@ -44,6 +47,10 @@ export const router = createBrowserRouter([
       {
         path: "/camp/:id",
         element: <CampDetails />,
+      },
+      {
+        path: "/about",
+        element: <About />,
       },
     ],
   },
@@ -124,6 +131,14 @@ export const router = createBrowserRouter([
             <OrganizerRoute>
               <ManageRegistered />
             </OrganizerRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "bookings",
+        element: (
+          <PrivateRoute>
+            <MyBookings />
           </PrivateRoute>
         ),
       },

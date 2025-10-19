@@ -1,17 +1,45 @@
 import { useState } from "react";
 import DeleteModal from "../../Modal/DeleteModal";
+import FeedbackModal from "../../Modal/FeedbackModal";
+import axios from "axios";
 
-const ParticipantRegisterDataRow = ({ register }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const closeModal = () => setIsOpen(false);
+const ParticipantRegisterDataRow = ({ register, refetch }) => {
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
+  const closeDeleteModal = () => setIsDeleteOpen(false);
+  const closeFeedbackModal = () => setIsFeedbackOpen(false);
 
   const {
+    _id,
+    campId,
     campName,
     participantCount,
     status,
     fees,
     campImage,
+    paymentStatus, // assuming you track payment status
+    participantEmail,
+    participantName
   } = register;
+
+  const handleFeedbackSubmit = async (rating, feedbackText) => {
+    try {
+      await axios.post("/api/feedback", {
+        campId,
+        registerId: _id,
+        participantEmail,
+        participantName,
+        rating,
+        feedback: feedbackText
+      });
+      closeFeedbackModal();
+      refetch();
+      alert("Feedback submitted successfully!");
+    } catch (err) {
+      console.error(err);
+      alert("Failed to submit feedback");
+    }
+  };
 
   return (
     <tr>
@@ -35,11 +63,9 @@ const ParticipantRegisterDataRow = ({ register }) => {
         </p>
       </td>
 
-      {/* Date & Time */}
+      {/* Participant Count */}
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-        <p className="text-gray-900 whitespace-no-wrap">
-          {participantCount}
-        </p>
+        <p className="text-gray-900 whitespace-no-wrap">{participantCount}</p>
       </td>
 
       {/* Camp Fee */}
@@ -54,15 +80,31 @@ const ParticipantRegisterDataRow = ({ register }) => {
         </span>
       </td>
 
-      {/* Action - Cancel */}
-      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+      {/* Action */}
+      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm flex gap-2">
         <button
-          onClick={() => setIsOpen(true)}
+          onClick={() => setIsDeleteOpen(true)}
           className="inline-flex items-center px-3 py-1 text-sm font-semibold text-red-700 bg-red-100 rounded-full hover:bg-red-200 transition"
         >
           Cancel
         </button>
-        <DeleteModal isOpen={isOpen} closeModal={closeModal} />
+
+        {/* Show Feedback only if payment completed */}
+        {paymentStatus === "paid" && (
+          <button
+            onClick={() => setIsFeedbackOpen(true)}
+            className="inline-flex items-center px-3 py-1 text-sm font-semibold text-blue-700 bg-blue-100 rounded-full hover:bg-blue-200 transition"
+          >
+            Feedback
+          </button>
+        )}
+
+        <DeleteModal isOpen={isDeleteOpen} closeModal={closeDeleteModal} />
+        <FeedbackModal
+          isOpen={isFeedbackOpen}
+          closeModal={closeFeedbackModal}
+          onSubmit={handleFeedbackSubmit}
+        />
       </td>
     </tr>
   );
