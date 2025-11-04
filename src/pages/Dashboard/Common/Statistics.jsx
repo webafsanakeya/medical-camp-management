@@ -6,8 +6,8 @@ import useRole from '@/hooks/useRole';
 import React from 'react';
 
 const Statistics = () => {
-    const [role, isRoleLoading] = useRole()
-     if(isRoleLoading) return <LoadingSpinner />
+    const {role, roleLoading}= useRole()
+     if(roleLoading) return <LoadingSpinner />
 
     return (
         <div>

@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -7,38 +7,49 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu } from "lucide-react";
 import MediCampLogo from "../MediCampLogo/MediCampLogo";
 import useAuth from "@/hooks/useAuth";
 
 export default function Navbar() {
   const { user, logOut } = useAuth();
+  const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  // Define route sets
-  const publicLinks = [
+  // Detect scroll to add shadow
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const baseLinks = [
     { label: "Home", path: "/" },
     { label: "Available Camps", path: "/available-camps" },
     { label: "About", path: "/about" },
+    { label: "Contact", path: "/contact" },
+    { label: "FAQ", path: "/faq" },
+    { label: "Blog", path: "/blog" },
   ];
 
-  const privateLinks = [
-    { label: "Home", path: "/" },
-    { label: "Available Camps", path: "/available-camps" },
+  const privateOnlyLinks = [
     { label: "Dashboard", path: "/dashboard" },
     { label: "My Bookings", path: "/bookings" },
-    { label: "About", path: "/about" },
   ];
 
-  const linksToShow = user ? privateLinks : publicLinks;
+  const linksToShow = user ? [...baseLinks, ...privateOnlyLinks] : baseLinks;
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-primary text-white shadow-md">
+    <nav
+   className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+    isScrolled ? "shadow-md bg-white" : "bg-white"
+      }`}
+    >
       <div className="flex justify-between items-center max-w-7xl mx-auto px-4 py-3">
-        {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
-          <MediCampLogo invert/>
+          <MediCampLogo  />
         </Link>
 
         {/* Mobile Hamburger */}
@@ -53,10 +64,14 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-4">
           {linksToShow.map((link) => (
             <Link key={link.path} to={link.path}>
-              <Button
-                variant="ghost"
-                className="text-white hover:text-secondary hover:bg-primary/80 transition"
-              >
+             <Button
+  variant="ghost"
+  className={`hover:text-primary hover:bg-gray-100 transition ${
+    location.pathname === link.path
+      ? "text-primary font-semibold"
+      : "text-gray-700"
+  }`}
+>
                 {link.label}
               </Button>
             </Link>
@@ -64,9 +79,9 @@ export default function Navbar() {
 
           {!user ? (
             <Link to="/signup">
-              <Button className="bg-secondary text-primary hover:bg-secondary/90 transition">
-                Join Us
-              </Button>
+              <Button className="bg-primary text-white hover:bg-primary/90 transition">
+  Join Us
+</Button>
             </Link>
           ) : (
             <DropdownMenu>
@@ -86,12 +101,11 @@ export default function Navbar() {
                 <DropdownMenuItem disabled className="font-medium text-gray-700">
                   {user?.displayName || "User"}
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/dashboard">Dashboard</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/bookings">My Bookings</Link>
-                </DropdownMenuItem>
+                {privateOnlyLinks.map((link) => (
+                  <DropdownMenuItem asChild key={link.path}>
+                    <Link to={link.path}>{link.label}</Link>
+                  </DropdownMenuItem>
+                ))}
                 <DropdownMenuItem
                   onClick={logOut}
                   className="text-red-600 cursor-pointer"
@@ -106,14 +120,21 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-primary text-white mt-2 space-y-2 px-4 pb-3 animate-in slide-in-from-top-4">
+        <div className="md:hidden bg-white text-gray-700 mt-2 space-y-2 px-4 pb-3 animate-in slide-in-from-top-4">
           {linksToShow.map((link) => (
             <Link
               key={link.path}
               to={link.path}
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              <Button variant="ghost" className="w-full justify-start text-white hover:text-secondary">
+              <Button
+  variant="ghost"
+  className={`w-full justify-start hover:text-primary ${
+    location.pathname === link.path
+      ? "text-primary font-semibold"
+      : "text-gray-700"
+  }`}
+>
                 {link.label}
               </Button>
             </Link>
@@ -126,18 +147,16 @@ export default function Navbar() {
               </Button>
             </Link>
           ) : (
-            <>
-              <Button
-                variant="ghost"
-                className="w-full justify-start text-red-300 hover:text-red-500"
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  logOut();
-                }}
-              >
-                Logout
-              </Button>
-            </>
+            <Button
+              variant="ghost"
+              className="w-full justify-start text-red-300 hover:text-red-500"
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                logOut();
+              }}
+            >
+              Logout
+            </Button>
           )}
         </div>
       )}

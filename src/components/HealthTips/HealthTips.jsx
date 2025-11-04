@@ -14,17 +14,17 @@ const containerVariants = {
 
 const HealthTips = () => {
   return (
-    <section className="w-full py-12 bg-gradient-to-r from-yellow-50 to-yellow-100">
+    <section className="relative w-screen left-1/2 right-1/2 -mx-[50vw] bg-yellow-50 py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-10">
-          <h2 className="text-3xl font-extrabold text-gray-900">Health Tips</h2>
-          <p className="mt-2 text-sm text-gray-600">Quick tips for a healthy life</p>
+          <h2 className="text-3xl font-bold text-gray-900">Health Tips</h2>
+          <p className="mt-2 text-gray-600">Quick tips for a healthy life</p>
         </div>
 
         {/* Tips Grid */}
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -32,9 +32,12 @@ const HealthTips = () => {
           {tips.map((tip, index) => (
             <motion.div
               key={tip._id}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.15 }}
               whileHover={{ scale: 1.05, rotate: 1 }}
-              transition={{ type: "spring", stiffness: 300 }}
-              className={`bg-gradient-to-br p-6 rounded-2xl shadow-xl hover:shadow-2xl text-white flex flex-col items-center justify-center text-center ${
+              className={`bg-gradient-to-br p-6 rounded-2xl shadow-xl hover:shadow-2xl flex flex-col items-center justify-center text-center text-white ${
                 index === 0
                   ? "from-green-400 to-green-500"
                   : index === 1

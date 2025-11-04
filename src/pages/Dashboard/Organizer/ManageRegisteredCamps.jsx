@@ -1,7 +1,7 @@
 import OrganizerOrderDataRow from "@/components/Dashboard/TableRows/OrganizerOrderDataRow"
 
 
-const ManageRegistered = () => {
+const ManageRegisteredCamps = () => {
   return (
     <>
       <div className='container mx-auto px-4 sm:px-8'>
@@ -68,4 +68,4 @@ const ManageRegistered = () => {
   )
 }
 
-export default ManageRegistered
+export default ManageRegisteredCamps

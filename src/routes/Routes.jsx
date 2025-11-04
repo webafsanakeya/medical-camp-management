@@ -15,7 +15,7 @@ import RegisteredCamp from "@/pages/Dashboard/Participant/RegisteredCamp";
 
 import Login from "@/pages/JoinUs/Login/Login";
 import Profile from "@/pages/Dashboard/Common/Profile";
-import ManageRegistered from "@/pages/Dashboard/Organizer/ManageRegistered";
+import ManageRegistered from "@/pages/Dashboard/Organizer/ManageRegisteredCamps";
 import AdminRoute from "./AdminRoute";
 import ManageUsers from "@/pages/Dashboard/Admin/ManageUsers";
 import OrganizerRoute from "./OrganizerRoute";

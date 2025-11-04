@@ -36,37 +36,37 @@ const containerVariants = {
 
 const PublicFeedbacks = () => {
   return (
-    <section className="w-full py-12 bg-gray-100">
+    <section className="relative w-screen left-1/2 right-1/2 -mx-[50vw] bg-gray-50 py-16">
       {/* Full-width background */}
-      <div className="w-full bg-gray-100 py-12">
-        {/* Centered container for cards */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-extrabold text-gray-900">
-              Public Feedbacks
-            </h2>
-            <p className="mt-2 text-sm text-gray-600">
-              Here are some reviews from our visitors
-            </p>
-          </div>
-          <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            {staticReviews.map((review) => (
-              <motion.div
-                key={review._id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-              >
-                <ReviewCard review={review} />
-              </motion.div>
-            ))}
-          </motion.div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section title */}
+        <div className="text-center mb-10">
+          <h2 className="text-3xl font-bold text-gray-900">Public Feedbacks</h2>
+          <p className="mt-2 text-gray-600">
+            Here are some reviews from our visitors
+          </p>
         </div>
+
+        {/* Reviews grid */}
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          {staticReviews.map((review, idx) => (
+            <motion.div
+              key={review._id}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.15 }}
+              className="hover:scale-105 transform transition-transform duration-300"
+            >
+              <ReviewCard review={review} />
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

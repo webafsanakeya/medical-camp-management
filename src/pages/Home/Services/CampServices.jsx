@@ -43,14 +43,16 @@ const services = [
 
 export default function CampServices() {
   return (
-    <section className="py-16 bg-gradient-to-b from-white via-gray-50 to-white">
-      <div className="max-w-7xl mx-auto px-4 text-center">
-        <h2 className="text-3xl font-bold mb-2 text-gray-900">Our Camp Services</h2>
+    <section className="relative w-screen left-1/2 right-1/2 -mx-[50vw] bg-gray-100 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="text-center mb-10">
+          <h2 className="text-3xl font-bold mb-2 text-gray-900">Our Camp Services</h2>
         <p className="text-gray-600 mb-10">
           Medical services tailored for remote outreach, health awareness, and timely care.
         </p>
+      </div>
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {services.map((service, idx) => (
             <motion.div
               key={idx}
@@ -58,7 +60,7 @@ export default function CampServices() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.15 }}
-              className={`rounded-xl p-6 shadow-lg ${service.bg} cursor-pointer transform hover:scale-105 transition-transform`}
+              className={`rounded-xl p-6 shadow-lg ${service.bg} cursor-pointer hover:shadow-2xl hover:scale-105 transition-transform duration-300`}
             >
               <ServiceCard
                 icon={service.icon}

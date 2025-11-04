@@ -5,13 +5,17 @@ import Footer from '../components/ui/Shared/Footer/Footer';
 
 const MainLayout = () => {
     return (
-        <div className='bg-white'>
-            <Navbar></Navbar>
-            <div className='pt-24 min-h-[calc(100vh-68px)]'>
-<Outlet></Outlet>
-            </div>
-            
-            <Footer></Footer>
+        <div className='bg-white w-full'>
+            <Navbar />
+
+            {/* Full width outlet */}
+            <main className='pt-24 min-h-[calc(100vh-68px)] w-full'>
+                <div className='w-full'>
+                    <Outlet />
+                </div>
+            </main>
+
+            <Footer />
         </div>
     );
 };

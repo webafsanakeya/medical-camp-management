@@ -9,21 +9,22 @@ import { Link } from 'react-router'
 import OrganizerMenu from './Menu/OrganizerMenu'
 import useAuth from '../../../hooks/useAuth'
 import MediCampLogo from '@/components/ui/Shared/MediCampLogo/MediCampLogo'
-import useRole from '@/hooks/useRole'
+
 import LoadingSpinner from '@/components/ui/Shared/LoadingSpinner'
 import ParticipantsMenu from './Menu/ParticipantsMenu'
+import useRole from '@/hooks/useRole'
 
 const Sidebar = () => {
   const { logOut } = useAuth()
   const [isActive, setActive] = useState(false)
-  const [role, isRoleLoading] = useRole()
-  console.log(role, isRoleLoading);
+  const { role, roleLoading,  } = useRole();
+  console.log(role, roleLoading);
 
   // Sidebar Responsive Handler
   const handleToggle = () => {
     setActive(!isActive)
   }
-  if(isRoleLoading) return <LoadingSpinner/>
+  if(roleLoading) return <LoadingSpinner/>
   return (
     <>
       {/* Small Screen Navbar */}
