@@ -1,12 +1,49 @@
-# React + Vite
+# 🏥 Medical Camp Management System (MCMS)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack **MERN** web application designed to help **Organizers** and **Participants** easily manage and coordinate medical camps.  
+MCMS streamlines camp creation, registration, payments, feedback, and analytics — all in one place.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Demo  
+🌐 **Live Site URL:** https://medicamp-app.web.app/
+---
 
-## Expanding the ESLint configuration
+## 👩‍⚕️ Organizer Credentials  
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| Role | Email | Password |
+|------|--------|----------|
+| Organizer (Admin) | organizer@mcms.com | organizer123 |
+
+---
+
+## 💻 Tech Stack  
+
+**Frontend (Client):**
+- React.js (Vite)
+- React Router DOM
+- Tailwind CSS + DaisyUI
+- TanStack Query (for all GET requests)
+- Axios
+- React Hook Form / Formik
+- Firebase Authentication
+- SweetAlert2 / React Hot Toast
+- Recharts (Analytics Visualization)
+
+**Backend (Server):**
+- Node.js
+- Express.js
+- MongoDB + Mongoose
+- JWT Authentication
+- Stripe Payment Integration
+- dotenv (for environment variables)
+- CORS Middleware
+
+---
+
+## 🔒 Environment Variables
+
+Create a `.env` file in both `client` and `server` directories and include:
+
+### 🖥️ Client `.env`
+
