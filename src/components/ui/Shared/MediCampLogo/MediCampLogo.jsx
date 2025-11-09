@@ -12,13 +12,7 @@ const MediCampLogo = ({ invert = false }) => {
           invert ? 'brightness-0 invert' : ''
         }`}
       />
-      <span
-        className={`text-lg sm:text-xl md:text-2xl font-extrabold transition-colors duration-300 group-hover:text-lime-800 ${
-          invert ? 'text-white' : 'text-lime-700'
-        }`}
-      >
-        MediCamp
-      </span>
+
     </Link>
   );
 };

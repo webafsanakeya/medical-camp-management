@@ -3,26 +3,45 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import 'react-calendar/dist/Calendar.css';
 import { RouterProvider } from "react-router";
-import { router } from "./routes/Routes.jsx";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import { router } from "./router/Routes.jsx";
 import AuthProvider from "./providers/AuthProvider";
 import { Toaster } from "react-hot-toast";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import ThemeProvider from "./providers/ThemeProvider";
 
 
 // create client
+
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK_KEY);
 const queryClient = new QueryClient()
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <div className="font-inter max-w-7xl mx-auto">
+    <ThemeProvider>
+      
        <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
     <AuthProvider>
+      <Elements stripe={stripePromise}></Elements>
         <RouterProvider router={router} />
-        <Toaster position="top-right" reverseOrder={false} />
+        <Toaster 
+    position="top-right"
+              autoClose={3000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover 
+        />
       </AuthProvider>
    </QueryClientProvider>
       
-    </div>
+   
+    </ThemeProvider>
   </StrictMode>
 );
