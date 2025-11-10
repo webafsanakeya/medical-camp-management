@@ -17,10 +17,11 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 import Swal from "sweetalert2";
 import { updateProfile } from "firebase/auth";
-import { AuthContext } from "@/providers/AuthProvider";
+
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { auth } from "@/firebase/firebase.config";
 import toast from "react-hot-toast";
+import { AuthContext } from "@/providers/AuthProvider";
 
 const ParticipantProfile = () => {
     const { user } = useContext(AuthContext);

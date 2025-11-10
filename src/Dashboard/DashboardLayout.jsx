@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom';
-
-
-
-
+import { NavLink, Outlet, useNavigate, useLocation } from 'react-router';
 import { CgSpinner } from 'react-icons/cg';
-
 import {
     HiOutlineHome, HiOutlineLogout, HiOutlineViewGrid, HiOutlineUsers, HiOutlineDocumentText,
     HiOutlineCurrencyDollar, HiOutlineAnnotation, HiOutlineUserCircle, HiOutlineMenu, HiX,
@@ -19,7 +14,6 @@ import useUserRole from '@/hooks/useUserRole';
 import toast from 'react-hot-toast';
 import { Helmet } from 'react-helmet';
 
-// --- Sidebar Link Component (Updated for dark mode) ---
 const SidebarLink = ({ to, icon: Icon, children, end = false }) => (
     <NavLink
         to={to}
@@ -36,7 +30,6 @@ const SidebarLink = ({ to, icon: Icon, children, end = false }) => (
     </NavLink>
 );
 
-// --- Theme Toggle Button ---
 const ThemeToggleButton = ({ theme, toggleTheme }) => (
     <button
         onClick={toggleTheme}
@@ -47,8 +40,6 @@ const ThemeToggleButton = ({ theme, toggleTheme }) => (
     </button>
 );
 
-
-// --- Main Layout Component ---
 const DashboardLayout = () => {
     const { theme, toggleTheme } = useTheme();
     const { user, logOut } = useAuth();
@@ -74,6 +65,7 @@ const DashboardLayout = () => {
             <SidebarLink to="/dashboard/manage-registered-camps" icon={HiOutlineUsers}> Manage Registered </SidebarLink>
         </>
     );
+
     const participantLinks = (
         <>
             <SidebarLink to="/dashboard/registered-camps" icon={FaRegCalendarCheck}> Registered Camps </SidebarLink>
@@ -108,7 +100,9 @@ const DashboardLayout = () => {
 
     return (
         <div className="flex h-screen bg-gray-100 dark:bg-slate-900">
-                 <Helmet> <title>Dashboard | MediCamp</title> </Helmet>
+            <Helmet>
+                <title>Dashboard | MediCamp</title>
+            </Helmet>
 
             <div className={`fixed inset-0 z-30 bg-black/50 backdrop-blur-sm transition-opacity lg:hidden ${isSidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} onClick={() => setIsSidebarOpen(false)} />
 

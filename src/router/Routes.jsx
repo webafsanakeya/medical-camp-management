@@ -19,7 +19,7 @@ import PaymentPage from "@/Dashboard/Participant-Dashboard/PaymentPage";
 
 // Layouts
 import RootLayout from "@/RootLayout/RootLayout";
-import DashboardLayout from "@/Dashboard/Dashboard";
+
 
 // Public Pages
 import AvailableCamps from "@/pages/Available-Camp/AvailableCamps";
@@ -28,6 +28,9 @@ import ErrorPage from "@/pages/ErrorPage/ErrorPage";
 import Home from "@/pages/Home/Home";
 import SignIn from "@/pages/JoinUs/SignIn/SignIn";
 import SignUp from "@/pages/JoinUs/SignUp/SignUp";
+import DashboardLayout from "@/Dashboard/DashboardLayout";
+
+
 
 // Initialize Stripe
 

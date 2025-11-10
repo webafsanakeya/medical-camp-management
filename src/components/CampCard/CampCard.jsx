@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router";
 import { motion } from "framer-motion";
 import { HiOutlineLocationMarker, HiOutlineCalendar, HiOutlineUsers } from "react-icons/hi";
+import { Helmet } from "react-helmet";
 
 const CampCard = () => {
     // --- All Your Existing Logic (UNCHANGED) ---
@@ -77,9 +78,10 @@ const CampCard = () => {
                 
                 {/* --- Title and Subtitle (Restyled) --- */}
                 <div className="text-center mb-12">
-                    <h2 className="text-3xl font-bold tracking-tight text-gray-800 sm:text-4xl">
-                        Popular Medical Camps
-                    </h2>
+                  <Helmet>
+    <title>Popular Medical Camps | MediCamp</title>
+    <meta name="description" content="Discover our most attended and impactful medical camps. Join the health movement today!" />
+</Helmet>
                     {/* --- New Subtitle --- */}
                     <p className="mt-4 text-lg leading-6 text-gray-600">
                         Join our most attended camps and be part of a healthy community.

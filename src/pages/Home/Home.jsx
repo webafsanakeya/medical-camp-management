@@ -10,17 +10,17 @@ import OurServices from '@/components/OurService/OurServices';
 import Slider from '@/components/Slider/Slider';
 
 import React from 'react';
+import { Helmet } from 'react-helmet';
 
 
 const Home = () => {
     return (
         <div>
            
-                <title>Home | Medical Camp </title>
-                <meta
-                    name="description"
-                    content="Welcome to your dashboard. Browse camps, feedback, and more."
-                />
+            <Helmet>
+    <title>MediCamp | Health Camps & Volunteering</title>
+    <meta name="description" content="Join MediCamp medical camps to get healthcare support and volunteer opportunities in your community." />
+</Helmet>
            
             <Slider />
             <OurServices />

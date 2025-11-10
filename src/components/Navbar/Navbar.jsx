@@ -11,10 +11,11 @@ import {
   HiOutlineUserAdd,
 } from "react-icons/hi";
 import { BiLogOutCircle, BiLayout, BiLogIn } from "react-icons/bi";
-import { AuthContext } from "@/providers/AuthProvider";
+
 import MediCampLogo from "../ui/Shared/MediCampLogo/MediCampLogo";
 import useUserRole from "@/hooks/useUserRole";
 import toast from "react-hot-toast";
+import { AuthContext } from "@/providers/AuthProvider";
 
 const Navbar = () => {
   const { role } = useUserRole();
@@ -121,14 +122,19 @@ const Navbar = () => {
                   pathname === "/" &&
                   hash === link.href.substring(1));
               return (
-                <LinkComponent
-                  key={link.text}
-                  to={link.href}
-                  {...(isHashLink(link.href) ? { smooth: true } : {})}
-                  className="relative px-1 py-2 text-base font-medium transition-colors duration-200"
-                >
-                  {link.text}
-                </LinkComponent>
+               <LinkComponent
+  key={link.text}
+  to={link.href}
+  {...(isHashLink(link.href) ? { smooth: true } : {})}
+  className={`relative px-1 py-2 text-base font-medium transition-colors duration-200 
+    ${
+      isActive
+        ? "text-teal-700 dark:text-teal-400 font-semibold border-b-2 border-teal-700"
+        : "text-gray-800 dark:text-slate-200 hover:text-teal-700 dark:hover:text-teal-400"
+    }`}
+>
+  {link.text}
+</LinkComponent>
               );
             })}
           </div>
@@ -279,14 +285,19 @@ const Navbar = () => {
                 const LinkComponent = isHashLink(link.href) ? HashLink : Link;
                 return (
                   <LinkComponent
-                    key={link.text}
-                    to={link.href}
-                    smooth
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-800 hover:bg-gray-50 dark:text-slate-300 dark:hover:bg-slate-700"
-                  >
-                    {link.text}
-                  </LinkComponent>
+  key={link.text}
+  to={link.href}
+  smooth
+  onClick={() => setIsMobileMenuOpen(false)}
+  className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200
+    ${
+      pathname === link.href
+        ? "bg-teal-50 text-teal-700 dark:bg-slate-700 dark:text-teal-400"
+        : "text-gray-800 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700"
+    }`}
+>
+  {link.text}
+</LinkComponent>
                 );
               })}
             </div>

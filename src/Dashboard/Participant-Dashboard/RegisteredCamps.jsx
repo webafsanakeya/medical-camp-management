@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm} from 'react-hook-form';
 
 import Swal from 'sweetalert2';
 
@@ -11,9 +11,10 @@ import { HiOutlineSearch, HiX, HiChevronLeft, HiChevronRight } from 'react-icons
 import { FaStar } from 'react-icons/fa';
 
 
-import { AuthContext } from '@/providers/AuthProvider';
+
 import useAxiosSecure from '@/hooks/useAxiosSecure';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import { AuthContext } from '@/providers/AuthProvider';
 
 // --- Reusable Status Chip component ---
 const StatusChip = ({ status, type }) => {

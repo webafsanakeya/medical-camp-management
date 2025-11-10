@@ -114,6 +114,7 @@ const Slider = () => {
             {/* Previous Button */}
             <Button
                 onClick={prevSlide}
+                aria-label="Previous Slide"
                 sx={{
                     position: "absolute",
                     top: "50%",
@@ -132,6 +133,7 @@ const Slider = () => {
             {/* Next Button */}
             <Button
                 onClick={nextSlide}
+                 aria-label="Next Slide"
                 sx={{
                     position: "absolute",
                     top: "50%",
