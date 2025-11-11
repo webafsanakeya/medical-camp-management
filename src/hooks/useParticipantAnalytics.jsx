@@ -1,8 +1,7 @@
-import { AuthContext } from "@/providers/AuthContext";
 import { useQuery } from "@tanstack/react-query";
-import { useContext } from "react";
 import useAxiosSecure from "./useAxiosSecure";
-
+import { useContext } from "react";
+import { AuthContext } from "@/providers/AuthProvider";
 
 
 const useParticipantAnalytics = () => {

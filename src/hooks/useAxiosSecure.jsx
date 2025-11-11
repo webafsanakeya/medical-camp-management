@@ -1,38 +1,44 @@
-import axios from 'axios'
+import axios from "axios";
+import { useEffect } from "react";
 
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router'
-import useAuth from './useAuth'
-
-
-console.log("API base URL:", import.meta.env.VITE_API_URL);
-
-export const axiosSecure = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
-  withCredentials: true,
-})
-
+const axiosSecure = axios.create({
+  baseURL: `https://medicamp-server-app.vercel.app`,
+});
 const useAxiosSecure = () => {
-  const navigate = useNavigate()
-  const { logOut } = useAuth()
   useEffect(() => {
-    axiosSecure.interceptors.response.use(
-      res => {
-        return res
-      },
-      async error => {
-        console.log('Error caught from axios interceptor-->', error.response)
-        if (error.response.status === 401 || error.response.status === 403) {
-          // logout
-          logOut()
-          // navigate to login
-          navigate('/login')
+    // Interceptor to add token to headers
+    const requestInterceptor = axiosSecure.interceptors.request.use(
+      (config) => {
+        const token = localStorage.getItem("token");
+        if (token) {
+          config.headers["Authorization"] = `Bearer ${token}`;
         }
-        return Promise.reject(error)
-      }
-    )
-  }, [logOut, navigate])
-  return axiosSecure
-}
+        return config;
+      },
+      (error) => Promise.reject(error)
+    );
 
-export default useAxiosSecure
+    // Interceptor to handle 401 errors (unauthorized)
+    const responseInterceptor = axiosSecure.interceptors.response.use(
+      (response) => response,
+      async (error) => {
+        if (error.response && error.response.status === 401) {
+          // Redirect to sign-in if token is invalid or expired
+          localStorage.removeItem("token");
+          window.location.href = "/sign-in";
+        }
+        return Promise.reject(error);
+      }
+    );
+
+    // Cleanup interceptors on unmount
+    return () => {
+      axiosSecure.interceptors.request.eject(requestInterceptor);
+      axiosSecure.interceptors.response.eject(responseInterceptor);
+    };
+  }, []);
+
+  return axiosSecure;
+};
+
+export default useAxiosSecure;
