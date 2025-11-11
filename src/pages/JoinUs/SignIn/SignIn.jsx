@@ -78,7 +78,7 @@ const SignIn = () => {
     <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4">
       <div className="w-full max-w-md rounded-xl bg-white p-8 shadow-xl">
         <div className="text-center">
-          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-teal-50 text-teal-700">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-b from-teal-50 via-teal-100 to-cyan-50">
             <HiOutlineKey className="h-6 w-6" />
           </div>
           <h2 className="mt-4 text-2xl font-bold text-gray-800">Sign in to your account</h2>
@@ -115,7 +115,7 @@ const SignIn = () => {
           <button
             type="submit"
             disabled={loading}
-            className="flex w-full justify-center rounded-lg bg-teal-700 px-6 py-3 text-white hover:bg-teal-800 disabled:opacity-60"
+            className="flex w-full justify-center rounded-lg bg-gradient-to-r from-teal-400 via-cyan-400 to-cyan-500 hover:scale-105"
           >
             {loading ? <CgSpinner className="h-5 w-5 animate-spin" /> : "Sign In"}
           </button>
@@ -126,7 +126,7 @@ const SignIn = () => {
         <button
           onClick={handleGoogleSignIn}
           disabled={loading}
-          className="flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 bg-white px-6 py-3 text-gray-700 hover:bg-gray-50"
+          className="flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 bg-white px-6 py-3 text-teal-600 hover:text-teal-400"
         >
           <FcGoogle className="h-5 w-5" />
           Continue with Google
@@ -134,7 +134,7 @@ const SignIn = () => {
 
         <p className="mt-6 text-center text-sm text-gray-600">
           Don’t have an account?{" "}
-          <Link to="/sign-up" className="font-medium text-teal-700 hover:underline">
+          <Link to="/sign-up" className="font-medium text-teal-600 hover:text-teal-400">
             Register here
           </Link>
         </p>

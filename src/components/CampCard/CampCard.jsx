@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link } from "react-router";
 import { motion } from "framer-motion";
 import { HiOutlineLocationMarker, HiOutlineCalendar, HiOutlineUsers } from "react-icons/hi";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 const CampCard = () => {
     // --- All Your Existing Logic (UNCHANGED) ---

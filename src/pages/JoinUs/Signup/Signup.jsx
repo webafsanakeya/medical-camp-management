@@ -149,7 +149,7 @@ const SignUp = () => {
                         <div className="rounded-xl bg-white p-8 shadow-xl">
                             {/* Header */}
                             <div className="text-center">
-                                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-teal-50 text-teal-700">
+                                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-b from-teal-50 via-teal-100 to-cyan-50">
                                     <HiOutlineUserAdd className="h-6 w-6" />
                                 </div>
                                 <h2 className="mt-4 text-2xl font-bold tracking-tight text-gray-800">
@@ -271,7 +271,7 @@ const SignUp = () => {
                                     <button
                                         type="submit"
                                         disabled={loading || addUserToDB.isPending} // Use mutation pending state
-                                        className="flex w-full justify-center rounded-lg border border-transparent bg-teal-700 px-6 py-3 text-base font-medium text-white shadow-sm transition-all duration-200 hover:bg-teal-800 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 disabled:opacity-60"
+                                        className="flex w-full justify-center rounded-lg bg-gradient-to-r from-teal-400 via-cyan-400 to-cyan-500 hover:scale-105"
                                     >
                                         {(loading || addUserToDB.isPending) ? (
                                             <CgSpinner className="h-5 w-5 animate-spin" />
@@ -307,7 +307,7 @@ const SignUp = () => {
                             {/* Link to Sign In */}
                             <p className="mt-6 text-center text-sm text-gray-600">
                                 Already have an account?{" "}
-                                <Link to="/sign-in" className="font-medium text-teal-700 hover:text-teal-600 hover:underline">
+                                <Link to="/sign-in" className="font-medium text-teal-600 hover:text-teal-400">
                                     Sign in here
                                 </Link>
                             </p>

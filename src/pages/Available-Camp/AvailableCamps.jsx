@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link as RouterLink } from "react-router";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 import { motion, AnimatePresence } from "framer-motion";
 import {

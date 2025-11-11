@@ -7,7 +7,7 @@ import { FaStethoscope } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 
 import useAxiosSecure from "@/hooks/useAxiosSecure";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import CampsJoinModal from "@/components/Modal/CampsJoinModal";
 import { AuthContext } from "@/providers/AuthProvider";
 
