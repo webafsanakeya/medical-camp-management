@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link as RouterLink } from "react-router";
 import { Helmet } from "react-helmet-async";
-
 import { motion, AnimatePresence } from "framer-motion";
 import {
   HiOutlineSearch,
@@ -18,10 +17,9 @@ import { CgSpinner } from "react-icons/cg";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import dayjs from "dayjs";
 
-// --- Configuration ---
 const ITEMS_PER_PAGE = 6;
 
-// --- Camp Card Component ---
+// Camp Card
 const CampCardDisplay = ({ camp }) => (
   <motion.article
     layout
@@ -30,7 +28,6 @@ const CampCardDisplay = ({ camp }) => (
     animate={{ opacity: 1, y: 0 }}
     exit={{ opacity: 0, y: -10 }}
     transition={{ duration: 0.2 }}
-    aria-label={`Camp ${camp.campName} in ${camp.location} on ${dayjs(camp.dateTime).format("DD MMM YYYY")}`}
   >
     <div className="relative h-56 w-full">
       <img
@@ -38,10 +35,7 @@ const CampCardDisplay = ({ camp }) => (
         alt={`Banner for ${camp.campName} at ${camp.location}`}
         className="w-full h-full object-cover"
       />
-      <div
-        className="absolute top-4 left-4 bg-teal-700 text-white py-1 px-3 rounded-full text-sm font-semibold flex items-center gap-1.5"
-        aria-label={`${camp.participants || 0} participants`}
-      >
+      <div className="absolute top-4 left-4 bg-gradient-to-r from-teal-500 via-teal-600 to-cyan-500 text-white py-1 px-3 rounded-full text-sm font-semibold flex items-center gap-1.5 shadow-md">
         <HiOutlineUsers className="w-4 h-4" />
         <span>{camp.participants || 0} Participants</span>
       </div>
@@ -52,21 +46,21 @@ const CampCardDisplay = ({ camp }) => (
         <h3 className="text-xl font-semibold text-gray-800 mb-3">{camp.campName}</h3>
         <div className="space-y-2 text-gray-600 text-sm">
           <p className="flex items-center gap-2">
-            <HiOutlineLocationMarker className="w-5 h-5 text-teal-700 flex-shrink-0" />
+            <HiOutlineLocationMarker className="w-5 h-5 text-teal-600 flex-shrink-0" />
             <span>{camp.location}</span>
           </p>
           <p className="flex items-center gap-2">
-            <HiOutlineCalendar className="w-5 h-5 text-teal-700 flex-shrink-0" />
+            <HiOutlineCalendar className="w-5 h-5 text-cyan-600 flex-shrink-0" />
             <span>{dayjs(camp.dateTime).format("DD MMM YYYY")}</span>
           </p>
           <p className="flex items-center gap-2">
-            <span className="text-teal-700 font-semibold w-5 h-5 flex justify-center items-center flex-shrink-0">$</span>
+            <span className="text-teal-600 font-semibold w-5 h-5 flex justify-center items-center flex-shrink-0">
+              $
+            </span>
             <span>{camp.fees}</span>
           </p>
           <p className="flex items-center gap-2">
-            <span className="text-teal-700 font-semibold w-5 h-5 text-lg flex justify-center items-center flex-shrink-0">
-              👨‍⚕️
-            </span>
+            <span className="text-cyan-600 text-lg">👨‍⚕️</span>
             <span>{camp.doctorName}</span>
           </p>
         </div>
@@ -75,8 +69,7 @@ const CampCardDisplay = ({ camp }) => (
       <div className="mt-5">
         <RouterLink
           to={`/camp-details/${camp._id}`}
-          className="inline-block px-4 py-2 rounded-lg text-sm font-medium text-white bg-teal-700 hover:bg-teal-800 transition-colors duration-300 shadow hover:shadow-md focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
-          aria-label={`View details for ${camp.campName}`}
+          className="inline-block px-4 py-2 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-teal-500 via-teal-600 to-cyan-500 hover:scale-105 hover:shadow-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2"
         >
           View Details
         </RouterLink>
@@ -85,7 +78,7 @@ const CampCardDisplay = ({ camp }) => (
   </motion.article>
 );
 
-// --- Pagination Component ---
+// Pagination
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   if (totalPages <= 1) return null;
 
@@ -93,31 +86,42 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const handleNext = () => currentPage < totalPages && onPageChange(currentPage + 1);
 
   return (
-    <nav className="mt-10 flex items-center justify-center gap-4" aria-label="Pagination">
+    <nav className="mt-12 flex items-center justify-center gap-4" aria-label="Pagination">
       <button
         onClick={handlePrev}
         disabled={currentPage === 1}
-        aria-label="Go to previous page"
-        className="flex items-center gap-1 rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+        className={`flex items-center gap-1 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2 ${
+          currentPage === 1
+            ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+            : "bg-gradient-to-r from-teal-500 via-cyan-500 to-cyan-600 text-white hover:scale-105 shadow-md"
+        }`}
       >
-        <HiChevronLeft className="h-4 w-4" /> Previous
+        <HiChevronLeft className="h-5 w-5" />
+        Previous
       </button>
-      <span className="text-sm text-gray-600" aria-live="polite">
-        Page {currentPage} of {totalPages}
+
+      <span className="text-gray-700 font-medium text-sm">
+        Page <span className="text-teal-600 font-semibold">{currentPage}</span> of{" "}
+        <span className="text-cyan-600 font-semibold">{totalPages}</span>
       </span>
+
       <button
         onClick={handleNext}
         disabled={currentPage === totalPages}
-        aria-label="Go to next page"
-        className="flex items-center gap-1 rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+        className={`flex items-center gap-1 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2 ${
+          currentPage === totalPages
+            ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+            : "bg-gradient-to-r from-teal-500 via-cyan-500 to-cyan-600 text-white hover:scale-105 shadow-md"
+        }`}
       >
-        Next <HiChevronRight className="h-4 w-4" />
+        Next
+        <HiChevronRight className="h-5 w-5" />
       </button>
     </nav>
   );
 };
 
-// --- Main Component ---
+// Main Component
 const AvailableCamps = () => {
   const axiosSecure = useAxiosSecure();
   const [searchTerm, setSearchTerm] = useState("");
@@ -133,7 +137,6 @@ const AvailableCamps = () => {
     },
   });
 
-  // --- Filtering & Sorting ---
   const filteredAndSortedCamps = camps
     .filter((camp) => {
       const formattedDate = dayjs(camp.dateTime).format("DD MMM YYYY").toLowerCase();
@@ -150,7 +153,6 @@ const AvailableCamps = () => {
       return 0;
     });
 
-  // --- Pagination ---
   const totalItems = filteredAndSortedCamps.length;
   const totalPages = totalItems > 0 ? Math.ceil(totalItems / ITEMS_PER_PAGE) : 1;
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -163,18 +165,16 @@ const AvailableCamps = () => {
     }
   }, [searchTerm, sortBy, camps]);
 
-  // --- Loading / Error States ---
   if (isLoading)
     return (
-      <div className="flex min-h-[60vh] items-center justify-center py-20" role="status" aria-live="polite">
-        <CgSpinner className="h-12 w-12 animate-spin text-teal-700" />
-        <span className="sr-only">Loading available camps...</span>
+      <div className="flex min-h-[60vh] items-center justify-center py-20">
+        <CgSpinner className="h-12 w-12 animate-spin text-teal-600" />
       </div>
     );
 
   if (isError)
     return (
-      <div className="flex min-h-[60vh] items-center justify-center py-20" role="alert">
+      <div className="flex min-h-[60vh] items-center justify-center py-20">
         <p className="text-lg text-red-600">Failed to load camps.</p>
       </div>
     );
@@ -183,45 +183,38 @@ const AvailableCamps = () => {
     <main className="bg-gray-50 py-16 sm:py-20 min-h-screen">
       <Helmet>
         <title>Available Camps | MediCamp</title>
-        <meta
-          name="description"
-          content="Browse and search for upcoming medical camps organized by MediCamp."
-        />
+        <meta name="description" content="Browse and search for upcoming medical camps." />
       </Helmet>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* --- Title --- */}
         <header className="text-center mb-10">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-800 sm:text-4xl">
+          <h1 className="text-3xl font-bold text-gray-800 sm:text-4xl">
             Available Medical Camps
           </h1>
         </header>
 
-        {/* --- Controls --- */}
+        {/* Controls */}
         <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-12 md:items-center">
+          {/* Search */}
           <div className="relative md:col-span-12 lg:col-span-6">
-            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-              <HiOutlineSearch className="h-5 w-5 text-gray-400" aria-hidden="true" />
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <HiOutlineSearch className="h-5 w-5 text-teal-500" />
             </div>
             <input
               type="text"
               placeholder="Search by name, location, or date..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="block w-full rounded-lg border-gray-300 bg-white py-3 pl-10 pr-3 shadow-sm focus:border-teal-500 focus:ring-1 focus:ring-teal-500 sm:text-sm"
-              aria-label="Search camps"
+              className="block w-full rounded-lg border-gray-300 bg-white py-3 pl-10 pr-3 shadow-sm focus:border-teal-500 focus:ring-1 focus:ring-cyan-500 sm:text-sm"
             />
           </div>
 
+          {/* Sort Dropdown */}
           <div className="md:col-span-6 lg:col-span-3">
-            <label htmlFor="sortBy" className="sr-only">
-              Sort Camps
-            </label>
             <select
-              id="sortBy"
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="block w-full rounded-lg border-gray-300 bg-white py-3 pl-3 pr-8 shadow-sm focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500 sm:text-sm"
+              className="block w-full rounded-lg border-gray-300 bg-white py-3 pl-3 pr-8 shadow-sm focus:border-cyan-500 focus:ring-1 focus:ring-teal-500 sm:text-sm text-gray-700"
             >
               <option value="default">Sort By</option>
               <option value="mostRegistered">Most Registered</option>
@@ -230,35 +223,40 @@ const AvailableCamps = () => {
             </select>
           </div>
 
+          {/* Layout Buttons */}
           <div className="flex justify-start md:justify-end space-x-2 md:col-span-6 lg:col-span-3">
             <button
               onClick={() => setLayoutColumns(2)}
-              className={`rounded-lg p-2 transition-colors ${
+              className={`flex items-center justify-center rounded-lg p-2 transition-all duration-300 border focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2 ${
                 layoutColumns === 2
-                  ? "bg-teal-700 text-white"
-                  : "bg-white text-gray-500 hover:bg-gray-100 shadow-sm border border-gray-300"
+                  ? "bg-gradient-to-r from-teal-500 via-cyan-500 to-cyan-600 text-white shadow-md scale-105"
+                  : "bg-white text-gray-500 hover:text-teal-600 hover:border-teal-400 hover:bg-teal-50 border-gray-300"
               }`}
-              aria-label="Set 2 columns layout"
-              aria-pressed={layoutColumns === 2}
             >
-              <HiOutlineViewList className="h-6 w-6" />
+              <HiOutlineViewList
+                className={`h-6 w-6 ${
+                  layoutColumns === 2 ? "text-white" : "text-gray-500"
+                }`}
+              />
             </button>
             <button
               onClick={() => setLayoutColumns(3)}
-              className={`rounded-lg p-2 transition-colors ${
+              className={`flex items-center justify-center rounded-lg p-2 transition-all duration-300 border focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2 ${
                 layoutColumns === 3
-                  ? "bg-teal-700 text-white"
-                  : "bg-white text-gray-500 hover:bg-gray-100 shadow-sm border border-gray-300"
+                  ? "bg-gradient-to-r from-teal-500 via-cyan-500 to-cyan-600 text-white shadow-md scale-105"
+                  : "bg-white text-gray-500 hover:text-teal-600 hover:border-teal-400 hover:bg-teal-50 border-gray-300"
               }`}
-              aria-label="Set 3 columns layout"
-              aria-pressed={layoutColumns === 3}
             >
-              <HiOutlineViewGrid className="h-6 w-6" />
+              <HiOutlineViewGrid
+                className={`h-6 w-6 ${
+                  layoutColumns === 3 ? "text-white" : "text-gray-500"
+                }`}
+              />
             </button>
           </div>
         </div>
 
-        {/* --- Camps Grid --- */}
+        {/* Camps Grid */}
         <AnimatePresence>
           <motion.div
             key={currentPage}
@@ -267,11 +265,15 @@ const AvailableCamps = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             className={`grid gap-8 ${
-              layoutColumns === 3 ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3" : "grid-cols-1 md:grid-cols-2"
+              layoutColumns === 3
+                ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+                : "grid-cols-1 md:grid-cols-2"
             }`}
           >
             {paginatedCamps.length > 0 ? (
-              paginatedCamps.map((camp) => <CampCardDisplay key={camp._id} camp={camp} />)
+              paginatedCamps.map((camp) => (
+                <CampCardDisplay key={camp._id} camp={camp} />
+              ))
             ) : (
               <p className="text-gray-500 md:col-span-2 lg:col-span-3 text-center py-10">
                 No camps found matching your search criteria.
@@ -280,9 +282,13 @@ const AvailableCamps = () => {
           </motion.div>
         </AnimatePresence>
 
-        {/* --- Pagination --- */}
+        {/* Pagination */}
         {filteredAndSortedCamps.length > 0 && (
-          <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+          />
         )}
       </div>
     </main>

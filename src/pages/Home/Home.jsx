@@ -1,5 +1,6 @@
 import AboutUs from '@/components/AboutUs/AboutUs';
-import Accordian from '@/components/Accordian/Accordian';
+import Accordion from '@/components/Accordion/Accordion';
+
 import CampCard from '@/components/CampCard/CampCard';
 import ContactSection from '@/components/Contact/ContactSection';
 import CTASection from '@/components/CTA/CTASection';
@@ -30,7 +31,7 @@ const Home = () => {
              <HealthTips />
             <AboutUs />
             <CTASection />
-            <Accordian />
+            <Accordion />
             <ContactSection />
         </div>
     );
